@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DTC Automated Bus Scheduling and Route Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #0077be;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+        }
+        nav {
+            background-color: #005c8f;
+            color: #fff;
+            padding: 0.5rem;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        nav ul li a:hover {
+            background-color: #0077be;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+        }
+        .main-content {
+            background-color: #fff;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        footer {
+            background-color: #0077be;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 20px;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .login-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .login-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 30%;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #0077be;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #005c8f;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #0077be;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        #map {
+            height: 400px;
+            width: 100%;
+            background-color: #eee;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-style: italic;
+            color: #666;
+        }
+        .feature-box {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .carousel {
+            width: 100%;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+        .carousel-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: white;
+            background-color: #0077be;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .carousel-item.active {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>DTC Automated Bus Scheduling and Route Management System</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#home" class="tab-link" data-tab="home">Home</a></li>
+            <li><a href="#schedule" class="tab-link" data-tab="schedule">Bus Schedule</a></li>
+            <li><a href="#routes" class="tab-link" data-tab="routes">Routes</a></li>
+            <li><a href="#tracking" class="tab-link" data-tab="tracking">Live Tracking</a></li>
+            <li><a href="#about" class="tab-link" data-tab="about">About</a></li>
+            <li><a href="#contact" class="tab-link" data-tab="contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div id="home" class="tab-content active">
+            <div class="main-content">
+                <h2>Welcome to DTC's Automated System</h2>
+                <div class="carousel">
+                    <div class="carousel-item active">Welcome to DTC's Smart Transport Solution</div>
+                    <div class="carousel-item">Real-time Bus Tracking</div>
+                    <div class="carousel-item">Efficient Route Planning</div>
+                    <div class="carousel-item">Eco-friendly Public Transport</div>
+                </div>
+                <p>Experience the future of public transportation with our state-of-the-art automated system.</p>
+                
+                <div class="feature-box">
+                    <h3>Quick Actions</h3>
+                    <button onclick="alert('This would open the route planner')">Plan Your Journey</button>
+                    <button onclick="alert('This would show nearby bus stops')">Find Nearby Stops</button>
+                    <button onclick="alert('This would open the fare calculator')">Calculate Fare</button>
+                </div>
+
+                <h3>Login to Access Personalized Features</h3>
+                <div class="login-container">
+                    <div class="login-form">
+                        <h3>User Login</h3>
+                        <form id="user-login-form">
+                            <div class="form-group">
+                                <label for="user-email">Email:</label>
+                                <input type="email" id="user-email" name="user-email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="user-password">Password:</label>
+                                <input type="password" id="user-password" name="user-password" required>
+                            </div>
+                            <button type="submit">Login</button>
+                        </form>
+                    </div>
+                    <div class="login-form">
+                        <h3>Authority Login</h3>
+                        <form id="authority-login-form">
+                            <div class="form-group">
+                                <label for="authority-id">Authority ID:</label>
+                                <input type="text" id="authority-id" name="authority-id" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="authority-password">Password:</label>
+                                <input type="password" id="authority-password" name="authority-password" required>
+                            </div>
+                            <button type="submit">Login</button>
+                        </form>
+                    </div>
+                    <div class="login-form">
+                        <h3>Crew Login</h3>
+                        <form id="crew-login-form">
+                            <div class="form-group">
+                                <label for="crew-id">Crew ID:</label>
+                                <input type="text" id="crew-id" name="crew-id" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="crew-password">Password:</label>
+                                <input type="password" id="crew-password" name="crew-password" required>
+                            </div>
+                            <button type="submit">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="schedule" class="tab-content">
+            <div class="main-content">
+                <h2>Bus Schedule</h2>
+                <p>Plan your journey with our comprehensive bus schedule. Use the form below to find buses for your route:</p>
+                <form id="schedule-search-form">
+                    <div class="form-group">
+                        <label for="from">From:</label>
+                        <input type="text" id="from" name="from" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="to">To:</label>
+                        <input type="text" id="to" name="to" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date:</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <button type="submit">Search Buses</button>
+                </form>
+                <div id="schedule-results">
+                    <h3>Search Results:</h3>
+                    <table>
+                        <tr>
+                            <th>Route Number</th>
+                            <th>Origin</th>
+                            <th>Destination</th>
+                            <th>Departure Time</th>
+                            <th>Estimated Arrival</th>
+                            <th>Available Seats</th>
+                        </tr>
+                        <tr>
+                            <td>DTC-001</td>
+                            <td>Connaught Place</td>
+                            <td>Dwarka</td>
+                            <td>09:00 AM</td>
+                            <td>10:15 AM</td>
+                            <td>25</td>
+                        </tr>
+                        <tr>
+                            <td>DTC-002</td>
+                            <td>Lajpat Nagar</td>
+                            <td>Rohini</td>
+                            <td>10:30 AM</td>
+                            <td>11:45 AM</td>
+                            <td>18</td>
+                        </tr>
+                        <tr>
+                            <td>DTC-003</td>
+                            <td>Nehru Place</td>
+                            <td>Vasant Kunj</td>
+                            <td>11:00 AM</td>
+                            <td>12:00 PM</td>
+                            <td>30</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="routes" class="tab-content">
+            <div class="main-content">
+                <h2>Bus Routes</h2>
+                <p>Explore our extensive network of bus routes across Delhi:</p>
+                <div class="form-group">
+                    <label for="route-select">Select a route:</label>
+                    <select id="route-select">
+                        <option value="">--Please choose a route--</option>
+                        <option value="route1">Route 1: Connaught Place - Dwarka</option>
+                        <option value="route2">Route 2: Lajpat Nagar - Rohini</option>
+                        <option value="route3">Route 3: Nehru Place - Vasant Kunj</option>
+                        <option value="route4">Route 4: Karol Bagh - Noida</option>
+                        <option value="route5">Route 5: India Gate - Gurgaon</option>
+                    </select>
+                </div>
+                <div id="route-info">
+                    <h3>Route Details:</h3>
+                    <p>Select a route to view its details.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="tracking" class="tab-content">
+            <div class="main-content">
+                <h2>Live Bus Tracking</h2>
+                <p>Track your bus in real-time with our interactive map:</p>
+                <div class="form-group">
+                    <label for="bus-number">Enter Bus Number:</label>
+                    <input type="text" id="bus-number" name="bus-number">
+                    <button onclick="alert('This would trigger live tracking for the entered bus number')">Track Bus</button>
+                </div>
+                <div id="map">
+                    [Interactive map would be displayed here]
+                </div>
+                <div id="bus-info">
+                    <h3>Bus Information:</h3>
+                    <p>Enter a bus number to view its current location and estimated arrival times.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="about" class="tab-content">
+            <div class="main-content">
+                <h2>About DTC Automated System</h2>
+                <p>The Delhi Transport Corporation (DTC) Automated Bus Scheduling and Route Management System is a state-of-the-art solution designed to optimize public transportation in Delhi.</p>
+                <h3>Our Mission</h3>
+                <p>To provide reliable, efficient, and sustainable public transportation for the citizens of Delhi, leveraging cutting-edge technology and data-driven decision making.</p>
+                <h3>Key Features</h3>
+                <ul>
+                    <li>Real-time bus tracking</li>
+                    <li>Automated scheduling</li>
+                    <li>Route optimization</li>
+                    <li>Passenger information system</li>
+                    <li>Traffic prediction and analysis</li>
+                </ul>
+                <h3>Benefits</h3>
+                <ul>
+                    <li>Reduced wait times for passengers</li>
+                    <li>Optimized routes based on traffic patterns</li>
+                    <li>Real-time updates for better journey planning</li>
+                    <li>Improved fuel efficiency and reduced emissions</li>
+                    <li>Enhanced safety through better fleet management</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="contact" class="tab-content">
+            <div class="main-content">
+                <h2>Contact Us</h2>
+                <p>We're here to help! Please fill out the form below with any questions, feedback, or concerns:</p>
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
